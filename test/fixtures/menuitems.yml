@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item: MyString
+  checked: false
+  menulist: one
+
+two:
+  item: MyString
+  checked: false
+  menulist: two

@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   def index
-    @user = User.find_by(email: params[:email])
-    render json: @user
+    userId = User.find_by(email: params[:email]).id
+    lists = User.includes(foodlists: :fooditems,
+                          buylists: :buyitems,
+                          menulists: :menuitems).find(userId)
+    allFoodItems = User.includes(:foodlists => :fooditems).find(userId)
+    render json: {data: lists.as_json(:include => [foodlists: { include: :fooditems},
+                                                   buylists: { include: :buyitems},
+                                                   menulists: { include: :menuitems}])}
   end
 
   def create
