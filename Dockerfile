@@ -1,5 +1,6 @@
 FROM ruby:2.6
 RUN mkdir /myapp
+RUN apt-get update && apt-get install -y vim
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
