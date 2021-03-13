@@ -4,7 +4,7 @@ class BuyitemsController < ApplicationController
   def create
     buyitem = Buyitem.new(buyitem_params)
     if buyitem.save
-      newList = Buylist.includes(:buyitems).where(user_id: params[:userId])
+      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
       render json: {data: newList.as_json(:include => [:buyitems])}
     else
       render status: 400
@@ -21,7 +21,7 @@ class BuyitemsController < ApplicationController
 
   def destroy
     if Buyitem.destroy([params[:ids]])
-      newList = Buylist.includes(:buyitems).where(user_id: params[:userId])
+      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
       render json: {data: newList.as_json(:include => [:buyitems])}
     else
       render status: 400

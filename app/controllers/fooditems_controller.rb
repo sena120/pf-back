@@ -4,7 +4,7 @@ class FooditemsController < ApplicationController
   def create
     fooditem = Fooditem.new(fooditem_params)
     if fooditem.save
-      newList = Foodlist.includes(:fooditems).where(user_id: params[:userId])
+      newList = Foodlist.includes(:fooditems).where(user_id: params[:user_id])
       render json: {data: newList.as_json(:include => [:fooditems])}
     else
       render status: 400
@@ -21,7 +21,7 @@ class FooditemsController < ApplicationController
 
   def destroy
     if Fooditem.destroy([params[:ids]])
-      newList = Foodlist.includes(:fooditems).where(user_id: params[:userId])
+      newList = Foodlist.includes(:fooditems).where(user_id: params[:user_id])
       render json: {data: newList.as_json(:include => [:fooditems])}
     else
       render status: 400

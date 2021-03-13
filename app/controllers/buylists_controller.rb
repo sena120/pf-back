@@ -1,11 +1,31 @@
 class BuylistsController < ApplicationController
-  def index
-    buylists = Buylist.where(user_id: params[:user_id])
-    render json: buylists
+  def create
+    buylists = Buylist.new(buylist_params)
+    if buylists.save
+      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
+      render json: {data: newList.as_json(:include => [:buyitems])}
+    else
+      render status: 400
+    end
   end
 
-  def create
-    @buylist = Buylist.new(buylist_params)
+  def update
+    buylist = Buylist.find(params[:id])
+    if buylist.update(category: params[:category])
+      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
+      render json: {data: newList.as_json(:include => [:buyitems])}
+      else
+        render status: 400
+      end
+  end
+
+  def destroy
+    if Buylist.destroy(params[:id])
+      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
+      render json: {data: newList.as_json(:include => [:buyitems])}
+    else
+      render status: 400
+    end
   end
 
   private

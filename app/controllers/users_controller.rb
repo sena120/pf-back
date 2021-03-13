@@ -11,12 +11,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      
-    else
-      
-    end
+    user = User.new(user_params)
+      if user.save
+        newMenu = Menulist.create(category: 'Mylist', user_id: user.id)
+        newFood = Foodlist.create(category: 'Mylist', user_id: user.id)
+        newBuy = Buylist.create(category: 'Mylist', user_id: user.id)
+        if newMenu.save and newFood.save and newBuy.save
+          render status: 200
+        else
+          render status: 400
+        end
+      else
+        render status: 400
+      end
   end
 
   private
