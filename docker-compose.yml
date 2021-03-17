@@ -16,6 +16,8 @@ services:
       - .:/myapp
     ports:
       - "3001:3001"
+    environment:
+      RAILS_ENV: development
     depends_on:
       - db
     stdin_open: true

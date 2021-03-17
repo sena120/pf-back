@@ -1,4 +1,7 @@
 FROM ruby:2.6
+
+ENV RAILS_ENV=production
+
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
