@@ -21,8 +21,7 @@ class BuylistsController < ApplicationController
 
   def destroy
     if Buylist.destroy(params[:id])
-      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
-      render json: {data: newList.as_json(:include => [:buyitems])}
+      render status: 200
     else
       render status: 400
     end

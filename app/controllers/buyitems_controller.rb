@@ -4,8 +4,7 @@ class BuyitemsController < ApplicationController
   def create
     buyitem = Buyitem.new(buyitem_params)
     if buyitem.save
-      newList = Buylist.includes(:buyitems).where(user_id: params[:user_id])
-      render json: {data: newList.as_json(:include => [:buyitems])}
+      render json: {data: buyitem}
     else
       render status: 400
     end

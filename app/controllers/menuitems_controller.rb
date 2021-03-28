@@ -4,8 +4,7 @@ class MenuitemsController < ApplicationController
   def create
     menuitem = Menuitem.new(menuitem_params)
     if menuitem.save
-      newList = Menulist.includes(:menuitems).where(user_id: params[:user_id])
-      render json: {data: newList.as_json(:include => [:menuitems])}
+      render json: {data: menuitem}
     else
       render status: 400
     end

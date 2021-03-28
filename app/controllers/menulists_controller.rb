@@ -1,8 +1,8 @@
 class MenulistsController < ApplicationController
 
   def create
-    menulists = Menulist.new(menulist_params)
-    if menulists.save
+    menulist = Menulist.new(menulist_params)
+    if menulist.save
       newList = Menulist.includes(:menuitems).where(user_id: params[:user_id])
       render json: {data: newList.as_json(:include => [:menuitems])}
     else
@@ -22,8 +22,7 @@ class MenulistsController < ApplicationController
 
   def destroy
     if Menulist.destroy(params[:id])
-      newList = Menulist.includes(:menuitems).where(user_id: params[:user_id])
-      render json: {data: newList.as_json(:include => [:menuitems])}
+      render status: 200
     else
       render status: 400
     end

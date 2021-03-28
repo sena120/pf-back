@@ -4,8 +4,7 @@ class FooditemsController < ApplicationController
   def create
     fooditem = Fooditem.new(fooditem_params)
     if fooditem.save
-      newList = Foodlist.includes(:fooditems).where(user_id: params[:user_id])
-      render json: {data: newList.as_json(:include => [:fooditems])}
+      render json: {data: fooditem}
     else
       render status: 400
     end
